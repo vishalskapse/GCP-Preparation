@@ -1,0 +1,227 @@
+Starter Breakdown Document - 6/2020
+------------------------------------------------------------
+Use this document to add you notes about each google product
+and put it all in one place. 
+
+Add to each section with notes to help YOU remember what each product does
+Organize YOUR thoughts
+
+------------------------------------------------------------
+Computing on GCP:
+
+Compute Engine (GCE) - Virtual Machines on GCP
+https://cloud.google.com/compute
+VMs are CPU/Memory/Disk + Networking
+VMs run in a ZONE. 
+Add move CPUs = More Networking Capacity (2-gigabit/CPU)
+Larger Disks = More Disk IOPS
+Persistent SSDs are faster than Persistent Disks (OS must be on a persistent disk)
+Local SSD are temporary. Data does NOT survive shutdown
+Scale up/down using Autoscaler based on a template
+Distribute incoming requests using a Load Balancer
+(add more information)
+
+Google Kubernetes Engine (GKE) - Managed Kubernetes (Google manages the Kubernetes Cluster - you deploy your Workloads)
+https://cloud.google.com/kubernetes
+Complex Container Orchestration
+Leverages Compute Engine (you can see the VMs behind the scenes)
+Nodes=Compute instances / Node Pools - collection of Nodes (you define size: CPU/RAM + Disk)
+Pods=Collection of one or more Containers working together
+Namespace=Virtual Cluster
+Create Cluster using: gcloud / API
+Manage Cluster using: kubectl
+Example Pod: Web App Container + Redis Container 
+(add more information)
+
+App Engine Standard - Running code on a Fully Managed Platform 
+https://cloud.google.com/appengine
+Give Google your code
+Python/Java/php/Go runtimes
+Includes Memcache and Task Queues
+REGIONAL - NOT MULTI-REGIONAL - ONE APP-ENGINE PER PROJECT
+Scales to 0 (no CPU/Memory cost if not being used - only bucket utilization)
+(add more information)
+
+App Engine Flex - Running Containers on a Fully Managed Platform 
+https://cloud.google.com/appengine
+Give Google a container (simple container orchastration) instead of code
+Includes Memcache and Task Queues
+Always ONE instance running (uses VMs behind the scenes)(otherwise startup delay would occur - example: 10 second Java App Startup)
+REGIONAL - NOT MULTI-REGIONAL - ONE APP-ENGINE PER PROJECT
+For Complex Container Orchestration - use Kubernetes
+(add more information)
+
+Cloud Functions - Event-driven serverless computing platform
+https://cloud.google.com/functions
+Specific Python, Node.js and Go runtimes
+Triggered by: Web URL, Pub/Sub Message, Bucket Action (upload file to bucket, change file in bucket, etc)
+Runs for ms to seconds, NOT long-running
+Pay per call/invocation and CPU/Memory usage (by the 100's of ms)
+(add more information)
+
+Cloud Run - Stateless Containers run on-demand/fully managed
+https://cloud.google.com/run
+Containers on-demand
+Triggered by: Web URL
+Pay per call/invocation and CPU/Memory usage
+Not likely to be on the exam yet (3/2020)
+(add more information)
+
+------------------------------------------------------------
+Storage on GCP
+
+Cloud Storage - 
+
+BLOB (Binary Large OBject), CLOB (Character Large OBject)
+All-or-nothing operation
+Storage Distribution: Regional, Multi-Regional, Dual-Region
+Storage Classes: Standard, Nearline, Coldline, Archive
+Back-end Files, Backups, Graphics, Disk Images, Logs, etc
+Similar to: AWS S3 buckets, Network Attached Storage (NAS)
+(add more information)
+
+CloudSQL - Managed SQL/Relation Databases
+https://cloud.google.com/sql
+Postgres 9, 11
+MySQL 5.6, 5.7
+Microsoft SQL Server 2017
+NOTE: Could always run a VM, install DB Software - but that is NOT managed
+More CPUs = More Network Capacity
+Larger Disks = More IOPS/Faster Disk Access
+SSD is faster than Standard Disks
+Up to 30TB Database Sizes
+Google manages Backups
+Normal: 1 Region, 1 Zone (1 Campus/1 Building)
+High-Availability: 1 Region, 2 Zones (1 Campus/2 Buildings)
+DOES NOT OFFER A MULTI-REGIONAL CONFIGURATION
+Has Maintenance Window (1 hour per week when Google could reboot)
+(add more information)
+
+Spanner - Fully Managed, Horizontally Scalable Database Service
+https://cloud.google.com/spanner
+Can be: Regional (99.99%) or Multi-Regional/Global (99.999%) (Specific Configurations)
+ANSI SQL (understands SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, etc)
+Expensive for small-scale databases
+Cost Break-even point vs Cloud SQL with HA - probably 500GB Database
+Nodes can be added/removed without downtime
+NO MAINTENACE WINDOW
+Does NOT Autoscale - but could build automated scaling
+Monitoring CPU of Spanner > 60% for 2 minutes -> Trigger Pub/Sub Messages -> Cloud Function -> Spanner Node = Spanner Node + 1
+(add more information)
+
+MemoryStore - Fully-managed  in-memory data store service 
+https://cloud.google.com/memorystore
+AppEngine includes MemCache (part of AppEngine) - not needed with AppEngine
+(add more information)
+
+Firestore/Datastore - Fully managed, serverless NoSQL Document Database
+https://cloud.google.com/firestore
+Document Database / JSON Blobs are being stored
+US/Europe Configurations are MultiRegional
+ONE Firestore/Datastore per project
+YES - IT IS TRANSACTION, just NOT a SQL database
+Similar to: MongoDB
+Pattern: AppEngine/Firestore/Cloud Storage - all Fully-Managed/Serverless
+(add more information)
+
+BigTable - https://cloud.google.com/bigtable
+Wide-column Database (lots of columns, ONLY ONE KEY)
+HBase Compatible
+Create using: gcloud / APIs
+Manage using: cbt  (cloud-big-table command line)
+(add more information)
+
+FileStore - https://cloud.google.com/filestore
+Managed NFS (Network File
+Seen in local file system in linux
+/ - Root of file system
+/bin - Binaries
+/etc - Configuration files 
+/whatever/ -> FileStore Location (uses NFS protocol to communicate)
+Often used as a Shared File System (NAS)
+Would be SIGNIFICANTLY FASTER than using a Bucket
+(add more information)
+
+------------------------------------------------------------
+For Cloud Architect Exam - High-level familarity with these products is required
+For Data Engineering Exam - DEEP knowledge of these products is required
+
+Data Processing on GCP
+ETL = Extract, Transform, Load
+Files in Bucket->Dataflow to Transform->Load into BigQuery
+Pub/Sub Mesages->Dataflow to Transform->Load into BigQuery
+ELT = Extract, Load, Transform
+Files in Bucket->import into BigQuery->use Queries to Transform into new tables
+EL = Extract, Load 
+Files in Bucket->import into BigQuery
+
+Data Engineer at Google
+Job is to get raw data into tables in BigQuery
+Primary Tech Skills: Python/Java
+
+Data Analyst at Google
+Process data from BigQuery Tables using SQL
+Primary Tech Skills: SQL
+
+BigQuery - Serverless Data Warehouse
+https://cloud.google.com/bigquery
+Both ANALYSIS (Queries) and STORAGE (Datasets/Tables)
+Project can have MANY Dataset->Datasets have Tables
+Does support Views
+Permissions are obtained via Project and Dataset (NO individual permissions on Tables)
+Pay for Storage (2c/GB/month) - drops to 1c/GB/month if table or partition unchanged for 3 months
+Pay for Query ($5/TB) - based on the data stored in columns used by query
+ONLY pay for the columns used in the Query
+(add more information)
+
+Dataflow 
+Runs Apache Beam (Object class for Java and Python)
+Autoscales
+Batch Mode: Creates/uses/deletes cluster
+Batch Data: Files in Buckets, BigQuery results, Pub/Sub Messages, Database 
+Patterns: Files in Bucket -> Dataflow -> BigQuery
+Streaming Mode: Creates/Runs cluster to process streaming data
+Streaming Data: Primary use case is Pub/Sub Messages
+Handles: Late Arriving Data, Out of Order, Deduplication
+Patterns: Pub/Sub -> Dataflow -> BigQuery
+Program-less Dataflow is done with DataPrep / Data Wrangling Tool by Trifacta - https://cloud.google.com/dataprep
+(add more information)
+
+DataProc - Managed Hadoop/Pig/Hive/Spark
+https://cloud.google.com/dataproc
+Master/Worker mode
+Lift-and-shift: Data remains on disks within cluster (HDFS). Cluster cannot be shutdown.
+Replatform: HDFS data to buckets. Cluster can now be: Created/Used/Destroyed as needed
+Can use Pre-emptible nodes 
+Program-less DataProc is done with DataFusion - https://cloud.google.com/data-fusion
+
+Cloud Composer - Managed Apache-airflow
+https://cloud.google.com/composer
+Google runs Kubernetes Cluster with Cloud Composer
+Gives Scheduler for Directed acyclic graph / Fancy name for Workflow
+Workflows are Python - a series of Operators
+Airflow Operators available for Multiple Cloud Providers
+
+------------------------------------------------------------
+
+Patterns
+
+Server Static Content from a Bucket
+http: Bucket with DNS CNAME(Alias Record)
+https: GCP Load Balancer
+
+Scaling Spanner
+Monitoring CPU Usage Metric for Spanner
+Triggering Pub/Sub Message when exceed threshold for specified amount of time
+Pub/Sub Message triggers Cloud Function
+Cloud Function adds another node to Spanner
+
+Load Balaner/Auto-Scaler
+
+Template - defines the Image/CPU/RAM/Script/Metadata Configuration
+Managed Instance Group - defines the Region/Zones configuration, Scaling rules, Min/Max - using a Template
+Load Balancer
+	Backend Service - Targets Managed Instance Group(s)
+	Proxy Rules - if more than one Back-end Service
+	Frontend Service - IP, Port (HTTP 80/HTTPS 443), SSL Certificate
+	Health Check - if health check fails - no more requests to that back-end

@@ -1,0 +1,91 @@
+Hello,
+
+ 
+
+Well done on completing the Coursera learning ahead of schedule. We are really pleased to see the progress you have made so far.
+
+ 
+
+We would now like you to begin Phase 2 by practicing what you’ve learnt so far using Google Qwiklabs. You should be able to see the labs free on https://google.qwiklabs.com/catalog (not qwiklabs.com).
+
+ 
+
+Using your personal laptop, please follow the steps below to begin your practice:
+
+ 
+
+1.       Type the link https://google.qwiklabs.com/catalog in your web browser
+
+2.       Create a new account using your HSBC email ID as the username and a password of your choice
+
+3.       Use the search button in your google qwiklabs account page to search for the specific labs below
+
+ 
+
+Please try to complete the labs by 31st of May 2020.
+
+ 
+
+Task
+
+Recommended Length
+
+Qwiklab: Creating a Virtual Machine
+
+30 minutes
+
+Qwiklab: Getting Started with Cloud Shell & gcloud
+
+30 minutes
+
+Qwiklab: Creating a Persistent Disk
+
+30 minutes
+
+Qwiklab: Hello Node Kubernetes
+
+60 minutes
+
+Qwiklab: Networking 101
+
+75 minutes
+
+Qwiklab: Compute Engine: Qwik Start - Windows
+
+30 minutes
+
+Qwiklab: Cloud IAM: Qwik Start
+
+30 minutes
+
+Qwiklab: Stackdriver: Qwik Start
+
+75 minutes
+
+Qwiklab: Setup Network and HTTP Load Balancers
+
+40 minutes
+
+Qwiklab: Deployment Manager - Full Production
+
+90 minutes
+
+Qwiklab: Orchestrating the Cloud with Kubernetes
+
+75 minutes
+
+Qwiklab: Continuous Delivery Pipelines with Spinnaker and Kubernetes
+
+60 minutes
+
+Qwiklab: Getting Started with Cloud KMS
+
+30 minutes
+
+ 
+
+You now have access to all Google Qwiklabs and you can practise them all, but please try to complete the ones in the list above by 31st May, 2020.
+
+ 
+
+If you are not able to access any lab for free from the link https://google.qwiklabs.com/catalog, please reach out to Qwiklabs via support@qwiklabs.com or support@qwiklab.zendesk.com. You can also contact Qwiklabs through live chat and they will surely help you to move ahead.
